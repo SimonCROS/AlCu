@@ -1,6 +1,5 @@
 #include <unistd.h>
-#include "ft_vector.h"
-#include "ft_mem.h"
+#include "alcu.h"
 
 void read_skip_line()
 {
@@ -35,6 +34,10 @@ int atoi_from_read()
         }
     }
 
+    if (c == '0')
+    {
+        return -2;
+    }
     if (result == 0 && c == '\n')
     {
         return 0;
@@ -58,7 +61,6 @@ int main()
 
     while ((n = atoi_from_read()) > 0)
     {
-        printf("%d\n", n);
         total += n;
         if (ft_vector_add(&v, &n))
         {
@@ -70,19 +72,25 @@ int main()
 
     if (n < 0)
     {
-        write(2, "ERROR\n", 6);
+        ft_putstr_fd("ERROR\n", 2);
         ft_vector_free(&v);
         read_skip_line();
         return 1;
     }
 
-    for (size_t i = 0; i < v.total; i++)
-    {
-        printf("%d\n", *((int *)v.ptr + i));
-    }
-    printf("Total: %d\n", total);
+    ft_putstr("End of map\n");
 
-    write(1, "End of map\n", 11);
-    ft_vector_free(&v);
+    int choosen;
+    do
+    {
+        ft_putstr("Please choose between 1 and 3 items\n");
+        choosen = atoi_from_read();
+
+        // TEST
+        ft_putstr("You choose\n");
+        ft_putnbr(n);
+        ft_putendl("");
+    } while ((choosen >= 1 && choosen <= 3) || choosen == -2);
+    
     return 0;
 }
