@@ -73,7 +73,7 @@ int player_turn(int count_on_line)
     while (choosen == ERROR || choosen == EMPTY)
     {
         ft_putendl("Invalid choice");
-        choosen = atoi_from_read(0, 3);
+        choosen = atoi_from_read(0, min(3, max_to_remove));
     }
 
     if (choosen == END_OF_FILE)
