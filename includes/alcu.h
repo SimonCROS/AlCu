@@ -21,7 +21,13 @@ int ft_putendl_fd(char *s, int fd);
 int ft_putendl(char *s);
 int ft_putchar_fd(char c, int fd);
 int ft_putchar(char c);
+
+int atoi_from_read(int fd, int max);
+
 int find_strategy(t_vector *v);
 int bot_turn(int v);
+int player_turn(int count_on_line);
+
+int game_loop(t_vector *v);
 
 #endif
