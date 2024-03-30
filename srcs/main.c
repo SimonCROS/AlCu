@@ -83,21 +83,21 @@ int player_turn(int count_on_line)
 
 void print_strategy(t_vector *v) // REMOVE
 {
-	size_t	i;
-	int		current;
+    size_t i;
+    int current;
 
-	i = 0;
-	while (i < v->total)
-	{
-		current = *(int *)ft_vector_get(v, i);
-		ft_putnbr(current & 0x7FFFFFFF);
-		if (current < 0)
-			write(1, " | 1", 4);
-		else
-			write(1, " | 0", 4);
-		write(1, "\n", 1);
-		i++;
-	}
+    i = 0;
+    while (i < v->count)
+    {
+        current = ft_vector_get(v, i);
+        ft_putnbr(current & 0x7FFFFFFF);
+        if (current < 0)
+            write(1, " | 1", 4);
+        else
+            write(1, " | 0", 4);
+        write(1, "\n", 1);
+        i++;
+    }
     write(1, "\n", 1);
 }
 
@@ -107,22 +107,23 @@ int game_loop(t_vector *v)
 
     print_strategy(v);
 
-    while (v->total > 0)
+    while (v->count > 0)
     {
-        int *count_on_line_ptr = (int*)ft_vector_get(v, v->total - 1);
+        int count_on_line = ft_vector_get(v, v->count - 1);
 
         int choosen;
         if (is_player_turn)
-            choosen = player_turn(N(*count_on_line_ptr));
+            choosen = player_turn(N(count_on_line));
         else
-            choosen = bot_turn(*count_on_line_ptr);
+            choosen = bot_turn(count_on_line);
 
         if (choosen == END_OF_FILE)
             return END_OF_FILE;
-        
-        *count_on_line_ptr -= choosen;
-        if (N(*count_on_line_ptr) == 0)
-            v->total--;
+
+        count_on_line -= choosen;
+        ft_vector_set(v, v->count - 1, count_on_line);
+        if (N(count_on_line) == 0)
+            v->count--;
 
         print_strategy(v);
 
@@ -150,7 +151,7 @@ int parse_map(char *path, t_vector *v)
 
     while ((ret = atoi_from_read(map_fd, 10000)) > 0)
     {
-        if (ft_vector_add(v, &ret))
+        if (ft_vector_add(v, ret))
         {
             close_if_file(map_fd);
             return ERROR;
@@ -171,7 +172,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    if (ft_vector_init(&v, (t_vinfos){sizeof(int), 0, NULL}))
+    if (ft_vector_init(&v, 0))
     {
         ft_putendl_fd("ERROR", 2);
         return 1;
@@ -184,7 +185,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    if (v.total == 0)
+    if (v.count == 0)
     {
         ft_putendl_fd("ERROR", 2);
         ft_vector_free(&v);

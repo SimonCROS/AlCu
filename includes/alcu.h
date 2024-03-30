@@ -21,7 +21,7 @@ int ft_putendl_fd(char *s, int fd);
 int ft_putendl(char *s);
 int ft_putchar_fd(char c, int fd);
 int ft_putchar(char c);
-int	find_strategy(t_vector *v);
-int	bot_turn(int v);
+int find_strategy(t_vector *v);
+int bot_turn(int v);
 
 #endif
