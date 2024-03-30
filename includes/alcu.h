@@ -4,8 +4,8 @@
 #include <fcntl.h>
 #include "ft_vector.h"
 
-#define SET_SHOULD_WIN_FLAG(num, condition) num |= (condition) << 31
-#define SHOULD_WIN(num) ((num) & (1 << 31))
+#define SET_SHOULD_LOOSE_FLAG(num, condition) num |= (condition) << 31
+#define SHOULD_LOOSE(num) ((num) & (1 << 31))
 #define N(num) ((num) & ~(1 << 31))
 
 #define EMPTY 0
@@ -21,5 +21,7 @@ int ft_putendl_fd(char *s, int fd);
 int ft_putendl(char *s);
 int ft_putchar_fd(char c, int fd);
 int ft_putchar(char c);
+int	find_strategy(t_vector *v);
+int	bot_turn(int v);
 
 #endif

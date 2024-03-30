@@ -81,9 +81,31 @@ int player_turn(int count_on_line)
     return choosen;
 }
 
+void print_strategy(t_vector *v) // REMOVE
+{
+	size_t	i;
+	int		current;
+
+	i = 0;
+	while (i < v->total)
+	{
+		current = *(int *)ft_vector_get(v, i);
+		ft_putnbr(current & 0x7FFFFFFF);
+		if (current < 0)
+			write(1, " | 1", 4);
+		else
+			write(1, " | 0", 4);
+		write(1, "\n", 1);
+		i++;
+	}
+    write(1, "\n", 1);
+}
+
 int game_loop(t_vector *v)
 {
     int is_player_turn = 0;
+
+    print_strategy(v);
 
     while (v->total > 0)
     {
@@ -91,24 +113,26 @@ int game_loop(t_vector *v)
 
         int choosen;
         if (is_player_turn)
-            choosen = player_turn(*count_on_line_ptr);
+            choosen = player_turn(N(*count_on_line_ptr));
         else
-            choosen = player_turn(*count_on_line_ptr);
+            choosen = bot_turn(*count_on_line_ptr);
 
         if (choosen == END_OF_FILE)
             return END_OF_FILE;
         
         *count_on_line_ptr -= choosen;
-        if (*count_on_line_ptr == 0)
+        if (N(*count_on_line_ptr) == 0)
             v->total--;
+
+        print_strategy(v);
 
         is_player_turn = !is_player_turn;
     }
 
     if (is_player_turn)
-        ft_putendl("AI wins");
-    else
         ft_putendl("Player wins");
+    else
+        ft_putendl("AI wins");
 
     return EMPTY;
 }
@@ -166,6 +190,8 @@ int main(int argc, char **argv)
         ft_vector_free(&v);
         return 1;
     }
+
+    find_strategy(&v);
 
     game_loop(&v);
 
