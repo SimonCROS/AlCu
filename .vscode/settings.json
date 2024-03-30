@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "unistd.h": "c",
-        "alcu.h": "c"
+        "alcu.h": "c",
+        "limits": "c",
+        "*.tcc": "c"
     }
 }

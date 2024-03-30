@@ -9,6 +9,11 @@ void read_skip_line()
     }
 }
 
+int min(int a, int b)
+{
+    return a > b ? b : a;
+}
+
 int atoi_from_read(int fd, int max)
 {
     char c;
@@ -60,7 +65,7 @@ int main(int argc, char **argv)
     int map_fd;
     if (argc > 2)
     {
-        ft_putstr_fd("ERROR\n", 2);
+        ft_putendl_fd("ERROR", 2);
         return 1;
     }
     else if (argc == 2)
@@ -68,7 +73,7 @@ int main(int argc, char **argv)
         map_fd = open(argv[1], O_RDONLY);
         if (map_fd == -1)
         {
-            ft_putstr_fd("ERROR\n", 2);
+            ft_putendl_fd("ERROR", 2);
             return 1;
         }
     }
@@ -111,17 +116,21 @@ int main(int argc, char **argv)
 
     if (n == ERROR)
     {
-        ft_putstr_fd("ERROR\n", 2);
+        ft_putendl_fd("ERROR", 2);
         ft_vector_free(&v);
         return 1;
     }
 
-    ft_putstr("End of map\n");
-
-    while (1)
+    while (v.total > 0)
     {
-        ft_putstr("Please choose between 1 and 3 items\n");
-        int choosen = atoi_from_read(0, 3);
+        int *count_on_line_ptr = (int*)ft_vector_get(&v, v.total - 1);
+        int count_on_line = *count_on_line_ptr;
+
+        int max_to_remove = min(3, count_on_line);
+        ft_putstr("Please choose between 1 and ");
+        ft_putnbr(max_to_remove);
+        ft_putendl(" items");
+        int choosen = atoi_from_read(0, min(3, max_to_remove));
         while (choosen == ERROR || choosen == EMPTY)
         {
             ft_putendl("Invalid choice");
@@ -130,7 +139,14 @@ int main(int argc, char **argv)
 
         if (choosen == END_OF_FILE)
             break;
+        
+        *count_on_line_ptr -= choosen;
+        if (*count_on_line_ptr == 0)
+        {
+            v.total--;
+        }
     }
 
+    ft_vector_free(&v);
     return 0;
 }
