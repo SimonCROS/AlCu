@@ -4,6 +4,9 @@
         "alcu.h": "c",
         "limits": "c",
         "*.tcc": "c",
-        "stddef.h": "c"
+        "stddef.h": "c",
+        "ft_vector.h": "c",
+        "fcntl.h": "c",
+        "ft_mem.h": "c"
     }
 }
