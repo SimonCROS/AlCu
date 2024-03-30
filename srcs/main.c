@@ -35,7 +35,7 @@ int parse_map(char *path, t_vector *v)
 int main(int argc, char **argv)
 {
     t_vector v;
-    WINDOW *win;
+    WINDOW *win = NULL;
 
     if (argc > 2)
     {
@@ -65,7 +65,6 @@ int main(int argc, char **argv)
 
     find_strategy(&v);
 
-    win = NULL;
     if (init_ncurses(win))
     {
         ft_vector_free(&v);

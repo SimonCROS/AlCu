@@ -2,9 +2,9 @@
 
 #include <unistd.h>
 #include <fcntl.h>
-#include <ncursesw/ncurses.h>
-# include <wchar.h>
-# include <locale.h>
+#include <ncurses.h>
+#include <wchar.h>
+#include <locale.h>
 #include "ft_vector.h"
 
 #define SET_SHOULD_LOOSE_FLAG(num, condition) num |= (condition) << 31
@@ -31,7 +31,7 @@ int find_strategy(t_vector *v);
 int bot_turn(int v);
 int player_turn(int count_on_line);
 
-int	init_ncurses(WINDOW *stdscr);
+int init_ncurses(WINDOW *stdscr);
 int game_loop(t_vector *v);
 
 #endif
