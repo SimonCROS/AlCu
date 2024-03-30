@@ -29,7 +29,7 @@ int atoi_from_read(int fd, int max);
 
 int find_strategy(t_vector *v);
 int bot_turn(int v);
-int player_turn(int count_on_line);
+int player_turn(t_vector *v, int count_on_line);
 
 int init_ncurses(WINDOW *stdscr);
 int game_loop(t_vector *v);
