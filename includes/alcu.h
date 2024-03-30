@@ -24,11 +24,13 @@ int ft_putendl_fd(char *s, int fd);
 int ft_putendl(char *s);
 int ft_putchar_fd(char c, int fd);
 int ft_putchar(char c);
+int min(int a, int b);
+int max(int a, int b);
 
 int atoi_from_read(int fd, int max);
 
 int find_strategy(t_vector *v);
-int bot_turn(int v);
+int bot_turn(t_vector *v, int count_on_line);
 int player_turn(t_vector *v, int count_on_line);
 
 int init_ncurses(WINDOW *stdscr);

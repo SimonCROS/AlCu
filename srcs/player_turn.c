@@ -1,15 +1,5 @@
 #include "alcu.h"
 
-static int min(int a, int b)
-{
-    return a > b ? b : a;
-}
-
-static int max(int a, int b)
-{
-    return a < b ? b : a;
-}
-
 static void draw_map(t_vector *v, int to_take)
 {
     clear();
@@ -17,7 +7,7 @@ static void draw_map(t_vector *v, int to_take)
 
     for (size_t i = 0; i < v->count; i++)
     {
-        int length = ft_vector_get(v, i);
+        int length = N(ft_vector_get(v, i));
         for (int j = 0; j < length; j++)
         {
             int col = center_x - length / 2 + j;

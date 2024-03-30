@@ -9,10 +9,10 @@ int game_loop(t_vector *v)
         int count_on_line = ft_vector_get(v, v->count - 1);
 
         int choosen;
-        // if (is_player_turn)
+        if (is_player_turn)
             choosen = player_turn(v, N(count_on_line));
-        // else
-        //     choosen = bot_turn(count_on_line);
+        else
+            choosen = bot_turn(v, count_on_line);
 
         if (choosen == END_OF_FILE)
             return END_OF_FILE;
