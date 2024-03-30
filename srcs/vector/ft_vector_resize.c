@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_vector.h"
-#include "ft_mem.h"
 #include <stdlib.h>
 
 int	ft_vector_resize(t_vector *v, size_t capacity)

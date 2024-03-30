@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_vector.h"
-#include "ft_mem.h"
 
 int	ft_vector_add(t_vector *v, void *item)
 {

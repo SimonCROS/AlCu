@@ -13,7 +13,6 @@
 #include <stdlib.h>
 
 #include "ft_vector.h"
-#include "ft_mem.h"
 
 int	ft_vector_free(t_vector *v)
 {

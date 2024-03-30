@@ -3,7 +3,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "ft_vector.h"
-#include "ft_mem.h"
 
 #define SET_SHOULD_WIN_FLAG(num, condition) num |= (condition) << 31
 #define SHOULD_WIN(num) ((num) & (1 << 31))
