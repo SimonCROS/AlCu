@@ -54,12 +54,60 @@ int atoi_from_read(int fd, int max)
     return result;
 }
 
-#include <stdio.h> // TEST
+int player_turn(int count_on_line)
+{
+    int max_to_remove = min(3, count_on_line);
+
+    ft_putstr("Please choose between 1 and ");
+    ft_putnbr(max_to_remove);
+    ft_putendl(" items");
+    int choosen = atoi_from_read(0, min(3, max_to_remove));
+    while (choosen == ERROR || choosen == EMPTY)
+    {
+        ft_putendl("Invalid choice");
+        choosen = atoi_from_read(0, 3);
+    }
+
+    if (choosen == END_OF_FILE)
+        return END_OF_FILE;
+    return choosen;
+}
+
+int game_loop(t_vector *v)
+{
+    int is_player_turn = 0;
+
+    while (v->total > 0)
+    {
+        int *count_on_line_ptr = (int*)ft_vector_get(v, v->total - 1);
+
+        int choosen;
+        if (is_player_turn)
+            choosen = player_turn(*count_on_line_ptr);
+        else
+            choosen = player_turn(*count_on_line_ptr);
+
+        if (choosen == END_OF_FILE)
+            return END_OF_FILE;
+        
+        *count_on_line_ptr -= choosen;
+        if (*count_on_line_ptr == 0)
+            v->total--;
+
+        is_player_turn = !is_player_turn;
+    }
+
+    if (is_player_turn)
+        ft_putendl("Player wins");
+    else
+        ft_putendl("AI wins");
+
+    return EMPTY;
+}
 
 int main(int argc, char **argv)
 {
     int n;
-    int total = 0;
     t_vector v;
 
     int map_fd;
@@ -94,9 +142,6 @@ int main(int argc, char **argv)
 
     while ((n = atoi_from_read(map_fd, 10000)) > 0)
     {
-        ft_putnbr(n);
-        ft_putendl("");
-        total += n;
         if (ft_vector_add(&v, &n))
         {
             write(2, "ERROR\n", 6);
@@ -121,31 +166,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    while (v.total > 0)
-    {
-        int *count_on_line_ptr = (int*)ft_vector_get(&v, v.total - 1);
-        int count_on_line = *count_on_line_ptr;
-
-        int max_to_remove = min(3, count_on_line);
-        ft_putstr("Please choose between 1 and ");
-        ft_putnbr(max_to_remove);
-        ft_putendl(" items");
-        int choosen = atoi_from_read(0, min(3, max_to_remove));
-        while (choosen == ERROR || choosen == EMPTY)
-        {
-            ft_putendl("Invalid choice");
-            choosen = atoi_from_read(0, 3);
-        }
-
-        if (choosen == END_OF_FILE)
-            break;
-        
-        *count_on_line_ptr -= choosen;
-        if (*count_on_line_ptr == 0)
-        {
-            v.total--;
-        }
-    }
+    game_loop(&v);
 
     ft_vector_free(&v);
     return 0;
