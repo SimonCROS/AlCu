@@ -14,6 +14,14 @@ int min(int a, int b)
     return a > b ? b : a;
 }
 
+void close_if_file(int fd)
+{
+    if (fd != 0)
+    {
+        close(fd);
+    }
+}
+
 int atoi_from_read(int fd, int max)
 {
     char c;
@@ -98,68 +106,61 @@ int game_loop(t_vector *v)
     }
 
     if (is_player_turn)
-        ft_putendl("Player wins");
-    else
         ft_putendl("AI wins");
+    else
+        ft_putendl("Player wins");
 
     return EMPTY;
 }
 
+int parse_map(char *path, t_vector *v)
+{
+    int ret;
+    int map_fd = path == NULL ? 0 : open(path, O_RDONLY);
+
+    if (map_fd == -1)
+    {
+        ft_putendl_fd("ERROR", 2);
+        return ERROR;
+    }
+
+    while ((ret = atoi_from_read(map_fd, 10000)) > 0)
+    {
+        if (ft_vector_add(v, &ret))
+        {
+            close_if_file(map_fd);
+            return ERROR;
+        }
+    }
+
+    close_if_file(map_fd);
+    return ret;
+}
+
 int main(int argc, char **argv)
 {
-    int n;
     t_vector v;
 
-    int map_fd;
     if (argc > 2)
     {
         ft_putendl_fd("ERROR", 2);
         return 1;
     }
-    else if (argc == 2)
-    {
-        map_fd = open(argv[1], O_RDONLY);
-        if (map_fd == -1)
-        {
-            ft_putendl_fd("ERROR", 2);
-            return 1;
-        }
-    }
-    else
-    {
-        map_fd = 0;
-    }
 
     if (ft_vector_init(&v, (t_vinfos){sizeof(int), 0, NULL}))
     {
-        write(2, "ERROR\n", 6);
-        if (map_fd != 0)
-        {
-            close(map_fd);
-        }
+        ft_putendl_fd("ERROR", 2);
         return 1;
     }
 
-    while ((n = atoi_from_read(map_fd, 10000)) > 0)
+    if (parse_map(argc == 2 ? argv[1] : NULL, &v) == ERROR)
     {
-        if (ft_vector_add(&v, &n))
-        {
-            write(2, "ERROR\n", 6);
-            ft_vector_free(&v);
-            if (map_fd != 0)
-            {
-                close(map_fd);
-            }
-            return 1;
-        }
+        ft_vector_free(&v);
+        ft_putendl_fd("ERROR", 2);
+        return 1;
     }
 
-    if (map_fd != 0)
-    {
-        close(map_fd);
-    }
-
-    if (n == ERROR)
+    if (v.total == 0)
     {
         ft_putendl_fd("ERROR", 2);
         ft_vector_free(&v);
