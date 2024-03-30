@@ -15,7 +15,9 @@ static int set_cursed_values()
         return 1;
     if (init_pair(1, COLOR_WHITE, COLOR_BLACK) == ERR)
         return 1;
-    if (init_pair(1, COLOR_WHITE, COLOR_GREEN) == ERR)
+    if (init_pair(2, 8, COLOR_BLACK) == ERR)
+        return 1;
+    if (init_pair(3, COLOR_WHITE, COLOR_GREEN) == ERR) // Selected
         return 1;
     timeout(500);
     return 0;
