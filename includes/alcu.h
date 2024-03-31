@@ -7,7 +7,7 @@
 #include <locale.h>
 #include "ft_vector.h"
 
-#define NCURSES
+// #define NCURSES // REMOVE
 
 #define CURRENT_STATE_MASK 0x00003FFF
 #define INITIAL_STATE_MASK 0x0FFFC000

@@ -1,24 +1,62 @@
 #include "alcu.h"
 
 #ifdef NCURSES
-	void end_screen_ncurses(int winner)
-	{
-		int center = COLS / 2;
-		int line = LINES / 2;
-		const char *player[2] = {"BOT", "PLAYER"};
-		const char *format = "%s WINS!!!";
-		const char *anykey = "Press any key to exit...";
-		int len = ft_strlen(format) + ft_strlen(player[winner]);
 
-		clear();
-		attron(COLOR_PAIR(5 + winner) | A_BOLD);
-		mvprintw(line, center - len / 2, format, player[winner]);
-		attroff(COLOR_PAIR(5 + winner) | A_BOLD);
-		mvprintw(LINES - 2, center - ft_strlen(anykey) / 2, anykey);
-		refresh();
-		timeout(-1);
-		getch();
-	}
+static void	print_player_win(void)
+{
+	const char *player[5] = {"██████  ██       █████  ██    ██ ███████ ██████      ██     ██ ██ ███    ██ ███████ ██ ██ ██", 
+							"██   ██ ██      ██   ██  ██  ██  ██      ██   ██     ██     ██ ██ ████   ██ ██      ██ ██ ██", 
+							"██████  ██      ███████   ████   █████   ██████      ██  █  ██ ██ ██ ██  ██ ███████ ██ ██ ██", 
+							"██      ██      ██   ██    ██    ██      ██   ██     ██ ███ ██ ██ ██  ██ ██      ██         ", 
+							"██      ███████ ██   ██    ██    ███████ ██   ██      ███ ███  ██ ██   ████ ███████ ██ ██ ██"};
+	int center = COLS / 2;
+	int line = LINES / 2;
+	int width = 92;
+	int	height = 5;
+
+	if (LINES < 10 || COLS < 94)
+		mvprintw(line, center - 7, "PLAYER WINS!!!");
+	else
+		for (int i = 0; i < height; i++)
+			mvprintw(line - 3 + i, center - width / 2, "%-*s", width, player[i]);
+}
+
+static void	print_bot_win(void)
+{
+	const char *bot[5] = {	"██████   ██████  ████████     ██     ██ ██ ███    ██ ███████ ██ ██ ██", 
+							"██   ██ ██    ██    ██        ██     ██ ██ ████   ██ ██      ██ ██ ██", 
+							"██████  ██    ██    ██        ██  █  ██ ██ ██ ██  ██ ███████ ██ ██ ██", 
+							"██   ██ ██    ██    ██        ██ ███ ██ ██ ██  ██ ██      ██         ", 
+							"██████   ██████     ██         ███ ███  ██ ██   ████ ███████ ██ ██ ██"};
+	int center = COLS / 2;
+	int line = LINES / 2;
+	int width = 69;
+	int	height = 5;
+
+	if (LINES < 10 || COLS < 71)
+		mvprintw(line, center - 5, "BOT WINS!!!");
+	else
+		for (int i = 0; i < height; i++)
+			mvprintw(line - 3 + i, center - width / 2, "%-*s", width, bot[i]);
+}
+
+void end_screen_ncurses(int winner)
+{
+	int center = COLS / 2;
+	const char *anykey = "Press any key to exit...";
+
+	clear();
+	attron(COLOR_PAIR(5 + winner) | A_BOLD);
+	if (winner)
+		print_player_win();
+	else
+		print_bot_win();
+	attroff(COLOR_PAIR(5 + winner) | A_BOLD);
+	mvprintw(LINES - 2, center - ft_strlen(anykey) / 2, anykey);
+	refresh();
+	timeout(-1);
+	getch();
+}
 #else
 	void end_screen_term(int winner)
 	{
