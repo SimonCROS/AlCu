@@ -1,8 +1,6 @@
 #ifndef ALCU_H
 #define ALCU_H
 
-// #define NCURSES // REMOVE
-
 #include <unistd.h>
 #include <fcntl.h>
 #include "ft_vector.h"
