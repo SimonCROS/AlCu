@@ -35,7 +35,9 @@ int parse_map(char *path, t_vector *v)
 int main(int argc, char **argv)
 {
     t_vector v;
-    WINDOW *win = NULL;
+    #ifdef NCURSES
+        WINDOW *win = NULL;
+    #endif
 
     if (argc > 2)
     {
@@ -65,16 +67,20 @@ int main(int argc, char **argv)
 
     find_strategy(&v);
 
+    #ifdef NCURSES
     if (init_ncurses(win))
-    {
-        ft_vector_free(&v);
-        ft_putendl_fd("ERROR", 2);
-        return 1;
-    }
+        {
+            ft_vector_free(&v);
+            ft_putendl_fd("ERROR", 2);
+            return 1;
+        }
+    #endif
 
     game_loop(&v);
 
-    endwin();
+    #ifdef NCURSES
+        endwin();
+    #endif
     ft_vector_free(&v);
     return 0;
 }

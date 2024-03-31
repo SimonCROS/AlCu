@@ -4,6 +4,11 @@ int game_loop(t_vector *v)
 {
     int is_player_turn = 0;
 
+    #ifndef NCURSES
+        ft_putstr("The game starts\n\n");
+        draw_map(v, 0, 0);
+    #endif
+
     while (v->count > 0)
     {
         int count_on_line = ft_vector_get(v, v->count - 1);
@@ -21,6 +26,10 @@ int game_loop(t_vector *v)
         ft_vector_set(v, v->count - 1, count_on_line);
         if (N(count_on_line) == 0)
             v->count--;
+
+        #ifndef NCURSES
+            draw_map(v, 0, 0);
+        #endif
 
         is_player_turn = !is_player_turn;
     }
