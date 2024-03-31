@@ -1,5 +1,6 @@
 #include "alcu.h"
 
+#ifdef NCURSES
 static int set_cursed_values()
 {
     if (curs_set(0) == ERR)
@@ -42,3 +43,4 @@ int init_ncurses(WINDOW *stdscr)
     }
     return 0;
 }
+#endif

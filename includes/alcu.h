@@ -1,13 +1,16 @@
 #ifndef ALCU_H
 
+// #define NCURSES // REMOVE
+
 #include <unistd.h>
 #include <fcntl.h>
+#include "ft_vector.h"
+
+#ifdef NCURSES
 #include <ncurses.h>
 #include <wchar.h>
 #include <locale.h>
-#include "ft_vector.h"
-
-// #define NCURSES // REMOVE
+#endif
 
 #define CURRENT_STATE_MASK 0x00003FFF
 #define INITIAL_STATE_MASK 0x0FFFC000
@@ -47,7 +50,9 @@ int find_strategy(t_vector *v);
 int bot_turn(t_vector *v, int count_on_line);
 int player_turn(t_vector *v, int count_on_line);
 
+#ifdef NCURSES
 int init_ncurses(WINDOW *stdscr);
+#endif
 int game_loop(t_vector *v);
 
 void draw_map(t_vector *v, int to_take, int to_take_color);
