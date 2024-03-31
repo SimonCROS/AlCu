@@ -21,6 +21,7 @@ int parse_map(char *path, t_vector *v)
 
     while ((ret = atoi_from_read(map_fd, 10000)) > 0)
     {
+        SET_INI(ret, ret);
         if (ft_vector_add(v, ret))
         {
             close_if_file(map_fd);
@@ -30,6 +31,17 @@ int parse_map(char *path, t_vector *v)
 
     close_if_file(map_fd);
     return ret;
+}
+
+int putb(int n)
+{
+    char b[(sizeof n * 8) + 1];
+    char *p = b + sizeof b;
+    *--p = '\0';
+    for (; p-- > b;  n >>= 1) {
+        *p = '0' + (char)(n & 1);
+    }
+    return puts(b);
 }
 
 int main(int argc, char **argv)

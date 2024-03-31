@@ -15,10 +15,13 @@
 #define LAST_PLAYER 0x40000000
 #define SHOULD_LOOSE_FLAG 0x80000000
 
-#define SET_SHOULD_LOOSE_FLAG(num, condition) num |= (condition) << 31
+#define SET_LAST_PLAYER_FLAG(num, condition) num |= LAST_PLAYER_FLAG
+#define SET_SHOULD_LOOSE_FLAG(num, condition) num |= SHOULD_LOOSE_FLAG
+#define SET_LAST_TAKE_COUNT(num, count) num = ((num & ~LAST_PLAYER_TAKE) | (count << 28))
+#define SET_INI(num, ini) num |= N(ini) << 14
 #define SHOULD_LOOSE(num) ((num) & SHOULD_LOOSE_FLAG)
 #define N(num) ((num) & CURRENT_STATE_MASK)
-#define INI(num) ((num) & INITIAL_STATE_MASK)
+#define INI(num) ((num) & INITIAL_STATE_MASK) >> 14
 
 #define EMPTY 0
 #define ERROR -1
