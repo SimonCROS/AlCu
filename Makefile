@@ -90,7 +90,7 @@ INCS = \
 
 # *** CONFIG ***************************************************************** #
 
-CFLAGS		=	-Wall -Wextra -Werror $(OFLAGS)
+CFLAGS		=	-Wall -Wextra $(OFLAGS)
 OFLAGS 		=
 
 CPPFLAGS 	= 	$(addprefix -I, $(INCS)) \

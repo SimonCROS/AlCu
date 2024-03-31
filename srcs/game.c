@@ -17,7 +17,8 @@ int game_loop(t_vector *v)
         if (is_player_turn)
             choosen = player_turn(v, N(count_on_line));
         else
-            choosen = bot_turn(v, count_on_line);
+            choosen = player_turn(v, N(count_on_line));
+            // choosen = bot_turn(v, count_on_line);
 
         if (choosen == END_OF_FILE)
             return END_OF_FILE;
