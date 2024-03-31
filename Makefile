@@ -6,7 +6,7 @@
 #    By: kchillon <kchillon@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 22:03:24 by ibertran          #+#    #+#              #
-#    Updated: 2024/03/30 20:46:24 by kchillon         ###   ########lyon.fr    #
+#    Updated: 2024/03/31 12:27:40 by kchillon         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,12 @@ DEPS = $(patsubst %.o,%.d,$(OBJS))
 
 SRC = \
 	bot_turn \
+	end_screen	\
 	game \
 	main \
 	ncurses_init \
 	player_turn \
+	print \
 	# $(addprefix $(DEBUG_DIR),$(DEBUG_SRC)) ##REMOVE DEBUG
 
 # ********** VECTOR *********** #

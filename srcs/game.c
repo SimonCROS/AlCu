@@ -25,10 +25,7 @@ int game_loop(t_vector *v)
         is_player_turn = !is_player_turn;
     }
 
-    if (is_player_turn)
-        ft_putendl("Player wins");
-    else
-        ft_putendl("AI wins");
+    end_screen(is_player_turn);
 
     return EMPTY;
 }
