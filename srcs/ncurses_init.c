@@ -21,7 +21,7 @@ static int set_cursed_values()
         return 1;
     if (init_pair(4, COLOR_WHITE, COLOR_RED) == ERR) // Selected Bot
         return 1;
-    timeout(500);
+    timeout(1000);
     return 0;
 }
 

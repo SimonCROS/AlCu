@@ -9,9 +9,9 @@ void draw_map(t_vector *v, int to_take, int to_take_color)
         int length = N(ft_vector_get(v, i));
         for (int j = 0; j < length; j++)
         {
-            int col = center_x - length / 2 + j;
+            int col = center_x - length + (j * 2);
             int row = LINES - 3 - (v->count - i);
-            int overflow = length - COLS;
+            int overflow = (length * 2) - COLS;
             int is_last_line = i == v->count - 1;
             int row_color_type = min(max(max(3 - (v->count - i - 1), 0), row), 3);
             int color_pair_index = 1;
@@ -24,15 +24,15 @@ void draw_map(t_vector *v, int to_take, int to_take_color)
             }
             if (overflow > 0)
             {
-                col = COLS - (length - j);
-                if (col < 3)
-                {
-                    c = '.';
-                }
+                col = COLS - (length - j) * 2;
             }
             if (col < 0)
             {
                 continue;
+            }
+            if (overflow > 0)
+            {
+                mvprintw(row, 0, "%+d ", overflow);
             }
 
             if (row_color_type == 0)
