@@ -1,4 +1,5 @@
 #ifndef ALCU_H
+#define ALCU_H
 
 // #define NCURSES // REMOVE
 
@@ -57,5 +58,6 @@ int game_loop(t_vector *v);
 
 void draw_map(t_vector *v, int to_take, int to_take_color);
 void end_screen(int winner);
+int welcome_screen(t_vector *v);
 
 #endif

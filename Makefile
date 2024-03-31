@@ -6,7 +6,7 @@
 #    By: kchillon <kchillon@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 22:03:24 by ibertran          #+#    #+#              #
-#    Updated: 2024/03/31 15:01:39 by kchillon         ###   ########lyon.fr    #
+#    Updated: 2024/03/31 17:47:53 by kchillon         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,12 +26,13 @@ DEPS = $(patsubst %.o,%.d,$(OBJS))
 
 SRC = \
 	bot_turn \
+	display \
 	end_screen	\
 	game \
 	main \
 	ncurses_init \
 	player_turn \
-	display \
+	welcome_screen \
 	# $(addprefix $(DEBUG_DIR),$(DEBUG_SRC)) ##REMOVE DEBUG
 
 # ********** VECTOR *********** #
@@ -90,7 +91,7 @@ INCS = \
 
 # *** CONFIG ***************************************************************** #
 
-CFLAGS		=	-Wall -Wextra $(OFLAGS)
+CFLAGS		=	-Wall -Wextra -Werror $(OFLAGS)
 OFLAGS 		=
 
 CPPFLAGS 	= 	$(addprefix -I, $(INCS)) \

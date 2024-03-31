@@ -30,9 +30,13 @@ static int player_turn_ncurses(t_vector *v, int count_on_line)
         {
             to_take = max(to_take - 1, 1);
         }
-        else if (ch == KEY_ENTER || ch == KEY_RIGHT)
+        else if (ch == KEY_ENTER || ch == KEY_RIGHT || ch == 10)
         {
             break;
+        }
+        else if (ch == '1' || ch == '2' || ch == '3')
+        {
+            to_take = min(ch - '0', max_to_remove);
         }
     }
     return to_take;

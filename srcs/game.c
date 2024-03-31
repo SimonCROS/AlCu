@@ -4,6 +4,9 @@ int game_loop(t_vector *v)
 {
     int is_player_turn = 0;
 
+    if (welcome_screen(v) == END_OF_FILE)
+        return END_OF_FILE;
+
     while (v->count > 0)
     {
         int count_on_line = ft_vector_get(v, v->count - 1);
