@@ -33,17 +33,6 @@ int parse_map(char *path, t_vector *v)
     return ret;
 }
 
-int putb(int n)
-{
-    char b[(sizeof n * 8) + 1];
-    char *p = b + sizeof b;
-    *--p = '\0';
-    for (; p-- > b;  n >>= 1) {
-        *p = '0' + (char)(n & 1);
-    }
-    return puts(b);
-}
-
 int main(int argc, char **argv)
 {
     t_vector v;
