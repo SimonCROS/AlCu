@@ -7,9 +7,16 @@
 #include <locale.h>
 #include "ft_vector.h"
 
+#define CURRENT_STATE_MASK 0x00003FFF
+#define INITIAL_STATE_MASK 0x0FFFC000
+#define LAST_PLAYER_TAKE 0x30000000
+#define LAST_PLAYER 0x40000000
+#define SHOULD_LOOSE_FLAG 0x80000000
+
 #define SET_SHOULD_LOOSE_FLAG(num, condition) num |= (condition) << 31
-#define SHOULD_LOOSE(num) ((num) & (1 << 31))
-#define N(num) ((num) & ~(1 << 31))
+#define SHOULD_LOOSE(num) ((num) & SHOULD_LOOSE_FLAG)
+#define N(num) ((num) & CURRENT_STATE_MASK)
+#define INI(num) ((num) & INITIAL_STATE_MASK)
 
 #define EMPTY 0
 #define ERROR -1
@@ -35,5 +42,7 @@ int player_turn(t_vector *v, int count_on_line);
 
 int init_ncurses(WINDOW *stdscr);
 int game_loop(t_vector *v);
+
+void draw_map(t_vector *v, int to_take, int to_take_color);
 
 #endif
