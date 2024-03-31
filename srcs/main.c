@@ -36,9 +36,15 @@ int parse_map(char *path, t_vector *v)
 int main(int argc, char **argv)
 {
     t_vector v;
-    #ifdef NCURSES
-        WINDOW *win = NULL;
-    #endif
+#ifdef NCURSES
+    WINDOW *win = NULL;
+
+    if (!isatty(0))
+    {
+        ft_putendl_fd("ERROR", 2);
+        return 1;
+    }
+#endif
 
     if (argc > 2)
     {
