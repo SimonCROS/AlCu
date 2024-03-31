@@ -6,7 +6,7 @@
 #    By: kchillon <kchillon@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 22:03:24 by ibertran          #+#    #+#              #
-#    Updated: 2024/03/31 13:54:44 by kchillon         ###   ########lyon.fr    #
+#    Updated: 2024/03/31 15:01:39 by kchillon         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ DEBUG_SRC = \
 LIBS_PATH = \
 		
 LIBS = \
-	ncurses
+	ncursesw
 
 INCS_DIR = includes/
 INCS = \
