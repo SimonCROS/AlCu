@@ -1,4 +1,3 @@
-#include <unistd.h>
 #include "alcu.h"
 
 #ifdef NCURSES
@@ -83,7 +82,7 @@ int find_strategy(t_vector *v)
     {
         current = ft_vector_get(v, i);
         if (SHOULD_LOOSE(prev))
-            SET_SHOULD_LOOSE_FLAG(current, N(prev) % 4 != 1);
+            SET_SHOULD_LOOSE_FLAG(current, N(prev) % 4 == 0);
         else
             SET_SHOULD_LOOSE_FLAG(current, N(prev) % 4 == 1);
         ft_vector_set(v, i, current);
