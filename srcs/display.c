@@ -59,6 +59,10 @@ void draw_map_ncurses(t_vector *v, int to_take, int to_take_color)
             if (is_used)
             {
                 row_color_type = 2;
+                if (j - length_enabled < GET_LAST_TAKE(num))
+                {
+                    color_pair_index = GET_LAST_PLAYER(num) ? 6 : 5;
+                }
             }
 
             if (row_color_type == 0)

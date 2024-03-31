@@ -17,13 +17,14 @@ int game_loop(t_vector *v)
         if (is_player_turn)
             choosen = player_turn(v, N(count_on_line));
         else
-            choosen = player_turn(v, N(count_on_line));
-            // choosen = bot_turn(v, count_on_line);
+            choosen = bot_turn(v, count_on_line);
 
         if (choosen == END_OF_FILE)
             return END_OF_FILE;
 
         count_on_line -= choosen;
+        SET_LAST_PLAYER_FLAG(count_on_line, is_player_turn);
+        SET_LAST_TAKE_COUNT(count_on_line, choosen);
         ft_vector_set(v, v->count - 1, count_on_line);
         if (N(count_on_line) == 0)
             v->count--;
