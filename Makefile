@@ -6,7 +6,7 @@
 #    By: kchillon <kchillon@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 22:03:24 by ibertran          #+#    #+#              #
-#    Updated: 2024/03/31 12:27:40 by kchillon         ###   ########lyon.fr    #
+#    Updated: 2024/03/31 13:45:12 by kchillon         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC = \
 	main \
 	ncurses_init \
 	player_turn \
-	print \
+	display \
 	# $(addprefix $(DEBUG_DIR),$(DEBUG_SRC)) ##REMOVE DEBUG
 
 # ********** VECTOR *********** #
@@ -117,6 +117,8 @@ ifeq ($(MODE),debug)
 CFLAGS := $(filter-out $(OFLAGS),$(CFLAGS)) -g3
 else ifeq ($(MODE),fsanitize)
 CFLAGS := $(filter-out $(OFLAGS),$(CFLAGS)) -g3 -fsanitize=address
+else ifeq ($(MODE),bonus)
+DEFINES += BONUS
 else ifneq ($(MODE),)
 ERROR = MODE
 endif
@@ -147,7 +149,8 @@ $(BUILD_DIR)%.o : $(SRCS_DIR)%.c | ERROR_CHECK
 	@printf "🔧 $(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@\n"
 
 .PHONY : bonus
-bonus : $(NAME)
+bonus :
+	$(MAKE) MODE=bonus
 
 .PHONY : debug
 debug :
