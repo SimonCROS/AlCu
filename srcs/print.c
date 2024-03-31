@@ -32,7 +32,7 @@ void draw_map(t_vector *v, int to_take, int to_take_color)
             }
             if (overflow > 0)
             {
-                mvprintw(row, 0, "%+d ", overflow);
+                mvprintw(row, 0, " %+d ", overflow);
             }
 
             if (row_color_type == 0)
